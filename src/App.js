@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { Navigation } from './routes';
+import { AuthProvider } from './context';
 
 export default function App() {
   return (
-    <Fragment>
+    <AuthProvider>
       <Navigation />
       <ToastContainer 
         position='bottom-center'
@@ -17,7 +18,7 @@ export default function App() {
         draggable
         pauseOnHover={false}
       />
-    </Fragment>
+    </AuthProvider>
     
   );
 }

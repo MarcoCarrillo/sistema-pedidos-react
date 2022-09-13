@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Image, Header } from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { loginApi } from '../../../api/user'; 
 import './LoginForm.scss';
 
@@ -14,9 +15,9 @@ export function LoginForm() {
             try {
                 const response = await loginApi(formValue);
                 const { access } = response;
-                console.log(access);
+                console.log(access)
             } catch (error) {
-                console.log(error)
+                toast.error(error.message)
             }
         }
     });

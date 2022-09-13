@@ -5,20 +5,21 @@ import { AuthProvider } from './context';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Navigation />
-      <ToastContainer 
-        position='bottom-center'
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-      />
-    </AuthProvider>
-    
+    <Fragment>
+      <AuthProvider>
+        <Navigation />
+        <ToastContainer 
+          position='bottom-center'
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover={false}
+        />
+      </AuthProvider>
+    </Fragment>
   );
 }

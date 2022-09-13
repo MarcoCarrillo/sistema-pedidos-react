@@ -1,6 +1,7 @@
 import React, {useState, useEffect, createContext} from 'react';
-import { setToken, getToken } from '../api/token';
+import { setToken, getToken, removeToken } from '../api/token';
 import { useUser } from '../hooks';
+import { TOKEN } from '../utils/constants';
 
 export const AuthContext = createContext({
     auth: undefined,
@@ -30,14 +31,19 @@ export function AuthProvider(props) {
         const me = await getMe(token);
         setAuth({ token, me })
     }
+
+    const logout = () =>{
+        if(auth || localStorage.getItem(TOKEN)) {
+            removeToken();
+            setAuth(null);
+        }
+    }
+
     const valueContext = {
         auth,
         login,
-        logout: () => {
-            console.log('cerrando sesion...')
-        }
+        logout
     }
-    //console.log(auth)
 
     if(auth === undefined) return null;
 

@@ -21,16 +21,20 @@ export function TopMenu() {
 
   return (
     <Menu fixed='top' className='top-menu-admin'>
-        <Menu.Item className='top-menu-admin__logo'>
-            <Image src='https://i.ibb.co/0B3MdZx/logo-tiburoneros.jpg' size='tiny' centered />
-        </Menu.Item>
-        <Menu.Menu position='right'>
-            <Menu.Item>{renderName()}</Menu.Item>
-            <Menu.Item onClick={logout}>
-                <Icon size='large' name="sign out" />
-                <p>Cerrar Sesion</p>
+        <Menu.Menu position='left'>
+            <Menu.Item className='top-menu-admin__logo'>
+                <Image src='https://i.ibb.co/0B3MdZx/logo-tiburoneros.jpg' size='tiny' centered />
+            </Menu.Item>
+            <Menu.Item position='left'>
+                <Menu.Item>{renderName()}</Menu.Item>
             </Menu.Item>
         </Menu.Menu>
+        
+        <Menu.Item onClick={logout}>
+            <Icon size='large' name="sign out" />
+            <p>Cerrar Sesion</p>
+        </Menu.Item>
+        
     </Menu>
   )
 }

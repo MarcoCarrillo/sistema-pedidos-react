@@ -2,6 +2,7 @@ import React, {useState, useEffect, createContext} from 'react';
 import { setToken, getToken, removeToken } from '../api/token';
 import { useUser } from '../hooks';
 import { TOKEN } from '../utils/constants';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext({
     auth: undefined,
@@ -30,12 +31,18 @@ export function AuthProvider(props) {
         setToken(token);
         const me = await getMe(token);
         setAuth({ token, me })
+        toast.success('Haz iniciado sesión correctamente')
     }
 
     const logout = () =>{
-        if(auth || localStorage.getItem(TOKEN)) {
+        if(localStorage.getItem(TOKEN)) {
             removeToken();
             setAuth(null);
+            toast.info('Haz cerrado sesión correctamente')
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000);
+            
         }
     }
 

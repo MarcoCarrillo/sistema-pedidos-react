@@ -5,7 +5,7 @@ export function setToken(token) {
 }
 
 export function getToken() {
-    localStorage.getItem(TOKEN);
+    return localStorage.getItem(TOKEN);
 }
 
 export function removeToken() {

@@ -1,0 +1,11 @@
+.ui.menu {
+    .item::before {
+        width: 0;
+    }
+}
+
+.top-menu-admin {
+    &__logo {
+        width: auto;
+    }
+}

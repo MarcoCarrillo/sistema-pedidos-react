@@ -1,14 +1,14 @@
 import React from 'react';
 import './AdminLayout.scss';
 import { LoginAdmin } from  '../../pages/Admin';
-import { TopMenu } from '../../components/Admin';
+import { TopMenu, SideMenu } from '../../components/Admin';
 import { useAuth } from '../../hooks';
 import { TOKEN } from '../../utils/constants';
 
 export function AdminLayout(props) {
     const { children } = props;
     const { auth } = useAuth();
-    if(!localStorage.getItem(TOKEN)) return <LoginAdmin />;
+    if(!auth) return <LoginAdmin />;
 
     return (
         <div className='admin-layout'>
@@ -16,7 +16,9 @@ export function AdminLayout(props) {
                 <TopMenu />
             </div>
             <div className='admin-layout__main-content'>
-                {children}
+                <SideMenu>
+                    {children}
+                </SideMenu>
             </div>
         </div>
     );

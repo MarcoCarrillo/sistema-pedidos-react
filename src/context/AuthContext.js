@@ -41,7 +41,7 @@ export function AuthProvider(props) {
             toast.info('Haz cerrado sesión correctamente')
             setTimeout(() => {
                 window.location.reload()
-            }, 2000);
+            }, 1000);
             
         }
     }

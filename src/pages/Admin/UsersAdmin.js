@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HeaderPage, TableUsers, AddEditUserForm } from '../../components/Admin';
+import { DeleteUserModal } from '../../components/Admin/Users/';
 import { Loader } from 'semantic-ui-react';
 import { ModalBasic } from '../../components/Common';
 import { useUser } from '../../hooks';
@@ -31,6 +32,12 @@ export function UsersAdmin() {
     openCloseModal();
   }
 
+  const deleteUser = (data) => {
+    setTitleModal('Eliminar Usuario');
+    setContentModal(<DeleteUserModal user={data} onClose={openCloseModal} onRefetch={onRefetch} />);
+    openCloseModal();
+  }
+
   return (
     <>
       <HeaderPage title='Usuarios' btnTitle='Nuevo usuario' btnClick={addUser} />
@@ -39,7 +46,7 @@ export function UsersAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableUsers users={users} updateUser={updateUser} />
+        <TableUsers users={users} updateUser={updateUser} deleteUser={deleteUser} />
       )}
 
       <ModalBasic size='tiny' show={showModal} onClose={openCloseModal} title={titleModal} children={contentModal} />

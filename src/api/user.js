@@ -97,3 +97,24 @@ export async function updateUserApi(id, data, token) {
         throw error;
     }
 }
+
+export async function deleteUserApi(id, token) {
+    try {
+        const url = `${BASE_API}/api/users/${id}/`;
+        const params = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        const response = await fetch(url, params);
+        
+        if(response.status === 204 || response.status === 200){
+            return 'Usuario eliminado correctamente';
+        }
+
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+}

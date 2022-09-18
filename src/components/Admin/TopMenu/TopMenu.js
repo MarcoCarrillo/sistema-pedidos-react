@@ -21,7 +21,7 @@ export function TopMenu() {
     }
 
   return (
-    <Menu fixed='top' className='top-menu-admin'>
+    <Menu fixed='top' className='top-menu-admin' color='#009ffd'>
         <Menu.Menu position='left'>
             <Menu.Item className='top-menu-admin__logo'>
                 <Image src='https://i.ibb.co/0B3MdZx/logo-tiburoneros.jpg' size='tiny' centered />

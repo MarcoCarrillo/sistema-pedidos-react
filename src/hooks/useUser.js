@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { toast } from 'react-toastify';
-import { getMeApi, getUsersApi, addUserApi } from '../api/user';
+import { getMeApi, getUsersApi, addUserApi, updateUserApi } from '../api/user';
 import { useAuth } from './useAuth';
 
 export function useUser() {
@@ -43,13 +43,27 @@ export function useUser() {
         }
     }
 
+    const updateUser = async (id, data) => {
+        try {
+            setLoading(true);
+            await updateUserApi(id, data, auth.token);
+            setLoading(false);
+            toast.success('Usuario actualizado correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(error);
+            toast.error('Ha ocurrido un error')
+        }
+    }
+
     return {
         loading,
         error,
         users,
         getMe,
         getUsers,
-        addUser
+        addUser,
+        updateUser
     };
 }
 

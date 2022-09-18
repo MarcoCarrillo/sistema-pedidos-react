@@ -12,16 +12,18 @@ export function UsersAdmin() {
   const [titleModal, setTitleModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState(null);
+  const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
     getUsers();
-  }, [])
+  }, [refetch])
   
   const openCloseModal = () => setShowModal( prev => !prev);
+  const onRefetch = () => setRefetch(prev => !prev );
 
   const addUser = () => {
     setTitleModal('Nuevo Usuario');
-    setContentModal(<AddEditUserForm />);
+    setContentModal(<AddEditUserForm onClose={openCloseModal} onRefetch={onRefetch} />);
     openCloseModal();
   }
 

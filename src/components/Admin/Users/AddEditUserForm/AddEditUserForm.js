@@ -6,15 +6,20 @@ import { useUser } from '../../../../hooks';
 import './AddEditUserForm.scss';
 
 export function AddEditUserForm(props) {
-    const { onClose, onRefetch } = props;
+    const { onClose, onRefetch, user } = props;
     const { addUser } = useUser();
     const formik = useFormik({
-        initialValues: initialValues(),
-        validationSchema: Yup.object(newSchema()),
+        initialValues: initialValues(user),
+        validationSchema: Yup.object(user ? updateSchema() : newSchema()),
         validateOnChange: false,
         onSubmit: async (formValue) => {
             try {
-                await addUser(formValue);
+                if(user) {
+                    console.log('Actualizar')
+                } else {
+                    await addUser(formValue);
+                }
+                
                 onRefetch();
                 onClose();
             } catch (error) {
@@ -76,20 +81,20 @@ export function AddEditUserForm(props) {
                 onChange={(_, data) => formik.setFieldValue('is_staff', data.checked)} 
             /> Usuario administrador
         </div>
-        <Button type='submit' content='Crear' fluid primary />
+        <Button type='submit' content={user ? 'Actualizar' : 'Crear'} fluid primary />
     </Form>
   )
 }
 
-function initialValues() {
+function initialValues(data) {
     return {
-        username: '',
-        email: '',
-        first_name: '',
-        last_name: '',
+        username: data?.username || '',
+        email: data?.email || '',
+        first_name: data?.first_name || '',
+        last_name: data?.last_name || '',
         password: '',
-        is_active: true,
-        is_staff: false
+        is_active: data?.is_active ? true : false,
+        is_staff: data?.is_staff ? true : false
     }
 }
 
@@ -100,6 +105,18 @@ function newSchema() {
         first_name: Yup.string(),
         last_name: Yup.string(),
         password: Yup.string().required(true),
+        is_active: Yup.bool().required(true),
+        is_staff: Yup.bool().required(true)
+    }
+}
+
+function updateSchema() {
+    return {
+        username: Yup.string().required(true),
+        email: Yup.string().email(true).required(true),
+        first_name: Yup.string(),
+        last_name: Yup.string(),
+        password: Yup.string(),
         is_active: Yup.bool().required(true),
         is_staff: Yup.bool().required(true)
     }

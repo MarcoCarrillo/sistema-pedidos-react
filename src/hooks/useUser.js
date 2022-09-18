@@ -24,7 +24,6 @@ export function useUser() {
             const response = await getUsersApi(auth.token);
             setLoading(false);
             setUsers(response);
-            console.log(response);
         } catch (error) {
             setLoading(false);
             setError(error);

@@ -6,8 +6,6 @@ import { useUser } from '../../hooks';
 
 export function UsersAdmin() {
   const { loading, users, getUsers } = useUser();
-  console.log('loading',loading);
-  console.log('users' ,users);
 
   const [titleModal, setTitleModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +25,12 @@ export function UsersAdmin() {
     openCloseModal();
   }
 
+  const updateUser = (data) => {
+    setTitleModal('Actualizar Usuario');
+    setContentModal(<AddEditUserForm user={data} onClose={openCloseModal} onRefetch={onRefetch} />);
+    openCloseModal();
+  }
+
   return (
     <>
       <HeaderPage title='Usuarios' btnTitle='Nuevo usuario' btnClick={addUser} />
@@ -35,7 +39,7 @@ export function UsersAdmin() {
           Cargando...
         </Loader>
       ) : (
-        <TableUsers users={users}/>
+        <TableUsers users={users} updateUser={updateUser} />
       )}
 
       <ModalBasic size='tiny' show={showModal} onClose={openCloseModal} title={titleModal} children={contentModal} />

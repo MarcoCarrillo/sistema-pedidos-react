@@ -14,14 +14,22 @@ export function AddEditCategoryForm(props) {
 
   const formik = useFormik({
     initialValues: initialValues(category),
-    validationSchema: Yup.object(newSchema()),
+    validationSchema: Yup.object(category ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
+      console.log(category);
       try {
-        addCategory(formValue);
+        if(category) {
+          await updateCategory(category.id, formValue)
+          toast.success('Categoría actualizada correctamente')
+        } 
+        else { 
+          await addCategory(formValue);
+          toast.success('Categoría creada correctamente')
+        } 
         onRefetch();
         onClose();
-        toast.success('Categoría creada correctamente')
+        
       } catch (error) {
         toast.error(error);
       }
@@ -57,7 +65,7 @@ export function AddEditCategoryForm(props) {
         color={formik.errors.image && "red"}
         {...getRootProps()}
       >
-        Subir imagen
+        {previewImage ? 'Cambiar Imagen' :  'Subir Imagen'}
       </Button>
       <input {...getInputProps()} />
       { previewImage && (

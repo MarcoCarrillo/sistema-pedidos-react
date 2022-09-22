@@ -37,11 +37,11 @@ export function TableCategoryAdmin(props) {
 }
 
 function Actions(props) {
-  const { category} = props;
+  const { category, updateCategory } = props;
 
   return (
     <Table.Cell textAlign="right">
-      <Button icon onClick={() => console.log('editar')}>
+      <Button icon onClick={() => updateCategory(category)}>
         <Icon name="pencil" />
       </Button>
       <Button icon negative onClick={() =>console.log('eliminar')}>

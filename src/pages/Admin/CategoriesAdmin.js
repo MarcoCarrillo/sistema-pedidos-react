@@ -22,6 +22,12 @@ export function CategoriasAdmin() {
         setContentModal(<AddEditCategoryForm onClose={openCloseModal} onRefetch={onRefetch}/>)
         openCloseModal()
     }
+
+    const updateCategory = (data) => {
+        setTitleModal('Actualizar categoria');
+        setContentModal(<AddEditCategoryForm onClose={openCloseModal} onRefetch={onRefetch} category={data}/>)
+        openCloseModal()
+    }
     
   return (
     <>
@@ -30,7 +36,7 @@ export function CategoriasAdmin() {
         />    
         {loading ? (
             <Loader active inline="centered">Cargando...</Loader>
-        ): <TableCategoryAdmin categories={categories} />}
+        ): <TableCategoryAdmin categories={categories} updateCategory={updateCategory} />}
         <ModalBasic 
             show={showModal}
             onClose={openCloseModal}

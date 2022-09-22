@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCategory } from "../../../../hooks";
 import "./AddEditCategoryForm.scss";
+import { toast } from "react-toastify";
 
 export function AddEditCategoryForm(props) {
   const { onClose, onRefetch, category } = props;
@@ -13,17 +14,16 @@ export function AddEditCategoryForm(props) {
 
   const formik = useFormik({
     initialValues: initialValues(category),
-    validationSchema: Yup.object(category ? updateSchema() : newSchema()),
+    validationSchema: Yup.object(newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        if (category) await updateCategory(category.id, formValue);
-        else await addCategory(formValue);
-
+        addCategory(formValue);
         onRefetch();
         onClose();
+        toast.success('Categoría creada correctamente')
       } catch (error) {
-        console.error(error);
+        toast.error(error);
       }
     },
   });
@@ -57,7 +57,7 @@ export function AddEditCategoryForm(props) {
         color={formik.errors.image && "red"}
         {...getRootProps()}
       >
-        {previewImage ? "Cambiar imagen" : "Subir imagen"}
+        Subir imagen
       </Button>
       <input {...getInputProps()} />
       { previewImage && (

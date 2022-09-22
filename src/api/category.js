@@ -54,3 +54,21 @@ export async function updateCategoryApi(id, data, token) {
         throw error;
     }
 }
+
+export async function deleteCategoryApi(id, token) {
+    try {
+        const url = `${BASE_API}/api/categories/${id}/`;
+        const params = {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        const response = await fetch(url, params);
+        if(response.status === 204 || response.status === 200){
+            return 'Usuario eliminado correctamente';
+        }
+    } catch (error) {
+        throw error;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { addCategoryApi, getCategoriesApi, updateCategoryApi } from '../api/category';
+import { addCategoryApi, getCategoriesApi, updateCategoryApi, deleteCategoryApi } from '../api/category';
 import { useAuth } from './useAuth';
+import { toast } from 'react-toastify';
 
 export function useCategory() {
     const [loading, setLoading] = useState(true);
@@ -43,12 +44,28 @@ export function useCategory() {
         }
     }
 
+    const deleteCategory = async (id) => {
+        try {
+            setLoading(true);
+            await deleteCategoryApi(id, auth.token);
+            setLoading(false);
+            toast.success('Categoria eliminada correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(error);
+            
+        console.log(error)
+            toast.error('Ha ocurrido un error')
+        }
+    }
+
     return {
         loading,
         error,
         categories,
         getCategories,
         addCategory,
-        updateCategory
+        updateCategory,
+        deleteCategory
     }
 }

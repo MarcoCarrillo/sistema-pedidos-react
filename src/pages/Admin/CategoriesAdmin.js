@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Loader } from 'semantic-ui-react';
-import { AddEditCategoryForm, HeaderPage, TableCategoryAdmin } from '../../components/Admin';
+import { AddEditCategoryForm, DeleteCategoryModal, HeaderPage, TableCategoryAdmin } from '../../components/Admin';
 import { useCategory } from '../../hooks';
 import { ModalBasic } from '../../components/Common';
 
@@ -28,6 +28,12 @@ export function CategoriasAdmin() {
         setContentModal(<AddEditCategoryForm onClose={openCloseModal} onRefetch={onRefetch} category={data}/>)
         openCloseModal()
     }
+
+    const deleteCategory = (data) => {
+        setTitleModal('Eliminar categoria');
+        setContentModal(<DeleteCategoryModal onClose={openCloseModal} onRefetch={onRefetch} category={data}/>)
+        openCloseModal()
+    }
     
   return (
     <>
@@ -36,7 +42,7 @@ export function CategoriasAdmin() {
         />    
         {loading ? (
             <Loader active inline="centered">Cargando...</Loader>
-        ): <TableCategoryAdmin categories={categories} updateCategory={updateCategory} />}
+        ): <TableCategoryAdmin categories={categories} updateCategory={updateCategory} deleteCategory={deleteCategory} />}
         <ModalBasic 
             show={showModal}
             onClose={openCloseModal}

@@ -8,16 +8,18 @@ export function ProductAdmin() {
     const [showModal, setShowModal] = useState(false);
     const [titleModal, setTitleModal] = useState(null);
     const [contentModal, setContentModal] = useState(null);
+    const [refetch, setRefetch] = useState(false);
 
     const { loading, products, getProducts } = useProduct();
 
-    useEffect(() => getProducts(), []);
+    useEffect(() => getProducts(), [refetch]);
 
     const openCloseModal = () => setShowModal(prev => !prev);
+    const onRefetch = () => setRefetch(prev => !prev);
 
     const addProduct = () => {
         setTitleModal('Nuevo producto');
-        setContentModal(<AddEditProductForm onClose={openCloseModal}/>)
+        setContentModal(<AddEditProductForm onClose={openCloseModal} onRefetch={onRefetch}/>)
         openCloseModal();
     }
 

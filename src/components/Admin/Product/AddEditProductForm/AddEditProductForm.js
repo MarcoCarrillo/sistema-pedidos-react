@@ -1,17 +1,19 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { Form, Image, Button, Dropdown, Checkbox } from 'semantic-ui-react';
-import { useCategory } from '../../../../hooks';
+import { useCategory, useProduct } from '../../../../hooks';
 import { useDropzone } from 'react-dropzone';
 import { map } from 'lodash';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'; 
 import './AddEditProductForm.scss';
 
-export function AddEditProductForm() {
+export function AddEditProductForm(props) {
+    const { onClose, onRefetch } = props;
     const [categoriesFormat, setCategoriesFormat] = useState([]);
     const [previewImage, setPreviewImage] = useState(null)
     const { categories, getCategories } = useCategory();
+    const { addProduct } = useProduct();
 
     useEffect(() => {
         getCategories()
@@ -24,9 +26,10 @@ export function AddEditProductForm() {
         initialValues: initialValues,
         validationSchema: Yup.object(newSchema()),
         validateOnChange: false,
-        onSubmit: (formValue) => {
-            console.log('Form enviado');
-            console.log(formValue);
+        onSubmit: async (formValue) => {
+            await addProduct(formValue);
+            onRefetch();
+            onClose();
         }
     })
 

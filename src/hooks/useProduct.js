@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { getProductsApi } from "../api/product";
+import { getProductsApi, addProductApi } from "../api/product";
+import { useAuth } from "./useAuth";
+import { toast } from 'react-toastify';
 
 export function useProduct() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [products, setProducts] = useState(null);
+    const { auth } = useAuth();
     
     const getProducts = async () => {
         try {
@@ -13,7 +16,21 @@ export function useProduct() {
             setLoading(false);
             setProducts(response);
         } catch (error) {
-            throw error;
+            setLoading(false);
+            setError(false);
+        }
+    }
+
+    const addProduct = async (data) => {
+        try {
+            setLoading(true);
+            addProductApi(data, auth.token);
+            setLoading(false);
+            toast.success('Producto agregado correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(false);
+            toast.success('Hubo un error')
         }
     }
 
@@ -21,6 +38,7 @@ export function useProduct() {
         loading,
         error,
         products,
-        getProducts
+        getProducts,
+        addProduct
     }
 }

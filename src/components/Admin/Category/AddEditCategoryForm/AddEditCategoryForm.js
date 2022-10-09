@@ -17,7 +17,6 @@ export function AddEditCategoryForm(props) {
     validationSchema: Yup.object(category ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      console.log(category);
       try {
         if(category) {
           await updateCategory(category.id, formValue)

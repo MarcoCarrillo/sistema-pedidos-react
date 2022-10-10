@@ -17,7 +17,6 @@ export function AddEditCategoryForm(props) {
     validationSchema: Yup.object(category ? updateSchema() : newSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      console.log(category);
       try {
         if(category) {
           await updateCategory(category.id, formValue)
@@ -43,7 +42,10 @@ export function AddEditCategoryForm(props) {
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/jpeg, image/png",
+    accept: {
+      'image/jpeg' : ['.jpeg'],
+      'image/png' : ['.png']
+    },
     noKeyboard: true,
     multiple: false,
     onDrop,

@@ -25,6 +25,12 @@ export function ProductAdmin() {
         openCloseModal();
     }
 
+    const updateProduct = (data) => {
+        setTitleModal('Actualizar producto');
+        setContentModal(<AddEditProductForm onClose={openCloseModal} onRefetch={onRefetch} product={data}/>)
+        openCloseModal();
+    }
+
     return (
         <Fragment>
             <HeaderPage title='Productos' btnTitle='Nuevo producto' btnClick={addProduct}/>
@@ -33,7 +39,7 @@ export function ProductAdmin() {
                     Cargando...
                 </Loader>
             ) : (
-                <TableProductAdmin products={products} />
+                <TableProductAdmin products={products} updateProduct={updateProduct} />
             )}
             <ModalBasic show={showModal} onClose={openCloseModal} title={titleModal} children={contentModal} />
         </Fragment>

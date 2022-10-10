@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import './TableProductAdmin.scss'
 
 export  function TableProductAdmin(props) {
-  const { products } = props;
+  const { products, updateProduct } = props;
 
   return (
     <Table className='table-product-admin'>
@@ -31,7 +31,7 @@ export  function TableProductAdmin(props) {
             <Table.Cell className='status'>
               {product.active ? <Icon name='check'/> : <Icon name='close' />} 
             </Table.Cell>
-            <Actions product={product} />
+            <Actions product={product} updateProduct={updateProduct} />
           </Table.Row>
         ))}
       </Table.Body>
@@ -41,11 +41,11 @@ export  function TableProductAdmin(props) {
 
 
 function Actions(props) {
-  const { product } = props;
+  const { product, updateProduct } = props;
 
    return (
     <TableCell textAlign='right'>
-      <Button icon color='yellow' onClick={() => console.log('editar')}>
+      <Button icon color='yellow' onClick={() => updateProduct(product)}>
         <Icon name='pencil'/>
       </Button>
       <Button icon negative onClick={() => console.log('eliminar')}>

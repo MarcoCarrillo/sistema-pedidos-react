@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getProductsApi, addProductApi } from "../api/product";
+import { getProductsApi, addProductApi, updateProductApi } from "../api/product";
 import { useAuth } from "./useAuth";
 import { toast } from 'react-toastify';
 
@@ -34,11 +34,25 @@ export function useProduct() {
         }
     }
 
+    const updateProduct = async (id, data) => {
+        try {
+            setLoading(true);
+            updateProductApi(id, data, auth.token);
+            setLoading(false);
+            toast.success('Producto actualizado correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(false);
+            toast.success('Hubo un error')
+        }
+    }
+
     return {
         loading,
         error,
         products,
         getProducts,
-        addProduct
+        addProduct,
+        updateProduct
     }
 }

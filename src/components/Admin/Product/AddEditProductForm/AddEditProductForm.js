@@ -9,11 +9,11 @@ import * as Yup from 'yup';
 import './AddEditProductForm.scss';
 
 export function AddEditProductForm(props) {
-    const { onClose, onRefetch } = props;
+    const { onClose, onRefetch, product } = props;
     const [categoriesFormat, setCategoriesFormat] = useState([]);
-    const [previewImage, setPreviewImage] = useState(null)
+    const [previewImage, setPreviewImage] = useState(product ? product?.image : null)
     const { categories, getCategories } = useCategory();
-    const { addProduct } = useProduct();
+    const { addProduct, updateProduct } = useProduct();
 
     useEffect(() => {
         getCategories()
@@ -23,11 +23,12 @@ export function AddEditProductForm(props) {
     }, [categories])
 
     const formik = useFormik({
-        initialValues: initialValues,
-        validationSchema: Yup.object(newSchema()),
+        initialValues: initialValues(product),
+        validationSchema: Yup.object(product ? updateSchema() : newSchema()),
         validateOnChange: false,
         onSubmit: async (formValue) => {
-            await addProduct(formValue);
+            if (product) await updateProduct(product.id, formValue);
+            else await addProduct(formValue);
             onRefetch();
             onClose();
         },
@@ -61,7 +62,7 @@ export function AddEditProductForm(props) {
         <Form.Input 
             name='price' 
             type='number' 
-            placeholder='Precio' 
+            placeholder='Precio $1 - $999' 
             value={formik.values.price}
             onChange={formik.handleChange}
             error={formik.errors.title} 
@@ -95,7 +96,7 @@ export function AddEditProductForm(props) {
         <input {...getInputProps()} />
         <Image src={previewImage} />
 
-        <Button type='submit' primary fluid>Crear producto</Button>
+        <Button type='submit' primary fluid>{product ? 'Actualizar producto' : 'Crear producto'}</Button>
     </Form>
   )
 }
@@ -108,12 +109,12 @@ function formatDropdownData(data) {
     }))
 }
 
-function initialValues() {
+function initialValues(data) {
     return {
-        title: '',
-        price: '',
-        category: '',
-        active: false,
+        title: data?.title || '',
+        price: data?.price || '',
+        category: data?.category || '',
+        active: data?.active ? true : false,
         image: ''
     }
 }
@@ -121,9 +122,19 @@ function initialValues() {
 function newSchema() {
     return {
         title: Yup.string().required(true),
-        price: Yup.number().required(true),
+        price: Yup.number().min(1).max(999).required(true),
         category: Yup.number().required(true),
         active: Yup.boolean().required(true),
         image: Yup.string().required(true)
+    }
+}
+
+function updateSchema() {
+    return {
+        title: Yup.string().required(true),
+        price: Yup.number().min(1).max(999).required(true),
+        category: Yup.number().required(true),
+        active: Yup.boolean().required(true),
+        image: Yup.string()
     }
 }

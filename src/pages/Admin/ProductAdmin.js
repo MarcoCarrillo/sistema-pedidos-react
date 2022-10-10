@@ -12,7 +12,9 @@ export function ProductAdmin() {
 
     const { loading, products, getProducts } = useProduct();
 
-    useEffect(() => getProducts(), [refetch]);
+    useEffect(() => { 
+        getProducts();
+    }, [refetch]);
 
     const openCloseModal = () => setShowModal(prev => !prev);
     const onRefetch = () => setRefetch(prev => !prev);

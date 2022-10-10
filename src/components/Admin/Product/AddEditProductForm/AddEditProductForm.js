@@ -30,8 +30,8 @@ export function AddEditProductForm(props) {
             await addProduct(formValue);
             onRefetch();
             onClose();
-        }
-    })
+        },
+    });
 
     const onDrop = useCallback(async (acceptedFile) => {
         const file = acceptedFile[0];
@@ -40,7 +40,10 @@ export function AddEditProductForm(props) {
     }, [])
 
     const {getRootProps, getInputProps} = useDropzone({
-        accept: '/image/jpeg, image/png',
+        accept: {
+            'image/jpeg' : ['.jpeg'],
+            'image/png' : ['.png']
+        },
         noKeyboard: true,
         multiple: false,
         onDrop

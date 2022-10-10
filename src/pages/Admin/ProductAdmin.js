@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Loader } from 'semantic-ui-react';
-import { HeaderPage, TableProductAdmin, AddEditProductForm } from '../../components/Admin';
+import { HeaderPage, TableProductAdmin, AddEditProductForm, DeleteProductModal } from '../../components/Admin';
 import { ModalBasic } from '../../components/Common';
 import { useProduct } from '../../hooks';
 
@@ -31,6 +31,12 @@ export function ProductAdmin() {
         openCloseModal();
     }
 
+    const deleteProduct = (data) => {
+        setTitleModal('Eliminar producto');
+        setContentModal(<DeleteProductModal onClose={openCloseModal} onRefetch={onRefetch} product={data}/>)
+        openCloseModal();
+    }
+
     return (
         <Fragment>
             <HeaderPage title='Productos' btnTitle='Nuevo producto' btnClick={addProduct}/>
@@ -39,7 +45,7 @@ export function ProductAdmin() {
                     Cargando...
                 </Loader>
             ) : (
-                <TableProductAdmin products={products} updateProduct={updateProduct} />
+                <TableProductAdmin products={products} updateProduct={updateProduct} deleteProduct={deleteProduct} />
             )}
             <ModalBasic show={showModal} onClose={openCloseModal} title={titleModal} children={contentModal} />
         </Fragment>

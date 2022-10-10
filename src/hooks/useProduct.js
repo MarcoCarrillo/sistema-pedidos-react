@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getProductsApi, addProductApi, updateProductApi } from "../api/product";
+import { getProductsApi, addProductApi, updateProductApi, deleteProductApi } from "../api/product";
 import { useAuth } from "./useAuth";
 import { toast } from 'react-toastify';
 
@@ -47,12 +47,26 @@ export function useProduct() {
         }
     }
 
+    const deleteProduct = async (id) => {
+        try {
+            setLoading(true);
+            await deleteProductApi(id, auth.token);
+            setLoading(false);
+            toast.success('Producto eliminado correctamente');
+        } catch (error) {
+            setLoading(false);
+            setError(error);
+            toast.error('Ha ocurrido un error');
+        }
+    }
+
     return {
         loading,
         error,
         products,
         getProducts,
         addProduct,
-        updateProduct
+        updateProduct,
+        deleteProduct
     }
 }

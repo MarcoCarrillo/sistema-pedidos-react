@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect} from 'react';
 import { Loader } from 'semantic-ui-react';
-import { HeaderPage } from '../../components/Admin';
+import { HeaderPage, TableTablesAdmin } from '../../components/Admin';
 import { useTable } from '../../hooks';
 
 export function TablesAdmin() {
@@ -18,7 +18,7 @@ export function TablesAdmin() {
             {loading ? 
                 <Loader active inline='centered'>Cargando...</Loader>
             :(
-                <h2>Listado de mesas</h2>
+                <TableTablesAdmin tables={tables} />
             )}
         </Fragment>
     )

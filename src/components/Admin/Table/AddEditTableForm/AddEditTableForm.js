@@ -2,17 +2,21 @@ import React from 'react'
 import { Form, Button } from 'semantic-ui-react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTable } from '../../../../hooks';
 import './AddEditTableForm.scss'
 
 export function AddEditTableForm(props) {
-  const { onClose } = props;
+  const { onClose, onRefetch } = props;
+  const { addTable } = useTable();
 
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
-    onSubmit: (formValue) => {
-      console.log(formValue);
+    onSubmit: async (formValue) => {
+      await addTable(formValue);
+      onRefetch();
+      onClose();
     }
   })
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import { getTablesApi } from '../api/table'
+import { getTablesApi, addTableApi } from '../api/table'
 import { useAuth } from './';
+import { toast } from 'react-toastify';
 
 export function useTable() {
     const [loading, setLoading] = useState(true);
@@ -21,11 +22,25 @@ export function useTable() {
         }
     }
 
+    const addTable = async (data) => {
+        try {
+            setLoading(true);
+            addTableApi(data, auth.token);
+            setLoading(false);
+            toast.success('Mesa agregada correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(false);
+            toast.success('Hubo un error')
+        }
+    }
+
     return {
         loading,
         error,
         tables,
-        getTables
+        getTables,
+        addTable
     }
 
 }

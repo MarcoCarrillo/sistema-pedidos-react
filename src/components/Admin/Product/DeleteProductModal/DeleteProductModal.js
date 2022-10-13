@@ -1,12 +1,12 @@
 import React from 'react'
 import { toast } from 'react-toastify';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { useProduct } from '../../../../hooks';
 
 export function DeleteProductModal(props) {
     const { onClose, onRefetch, product } = props;
     const { deleteProduct } = useProduct();
-    console.log(product);
+
     const onDeleteProduct = async (id) => {
         try {
             await deleteProduct(id);

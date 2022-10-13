@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { getTablesApi, addTableApi, updateTableApi } from '../api/table'
+import { getTablesApi, addTableApi, updateTableApi, deleteTableApi } from '../api/table'
 import { useAuth } from './';
 import { toast } from 'react-toastify';
 
@@ -48,13 +48,27 @@ export function useTable() {
         }
     }
 
+    const deleteTable = async (id) => {
+        try {
+            setLoading(true);
+            await deleteTableApi(id, auth.token);
+            setLoading(false);
+            toast.success('Mesa eliminada correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(false);
+            toast.success('Hubo un error')
+        }
+    }
+
     return {
         loading,
         error,
         tables,
         getTables,
         addTable,
-        updateTable
+        updateTable,
+        deleteTable
     }
 
 }

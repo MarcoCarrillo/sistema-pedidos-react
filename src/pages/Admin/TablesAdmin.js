@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import { Loader } from 'semantic-ui-react';
-import { HeaderPage, TableTablesAdmin, AddEditTableForm } from '../../components/Admin';
+import { HeaderPage, TableTablesAdmin, AddEditTableForm, DeleteTableModal } from '../../components/Admin';
 import { ModalBasic } from '../../components/Common';
 import { useTable } from '../../hooks';
 
@@ -35,6 +35,17 @@ export function TablesAdmin() {
         />);
         openCloseModal();
     }
+
+    const deleteTable = (data) => {
+        setTitleModal('Actualizar mesa');
+        setContentModal(
+        <DeleteTableModal 
+            onClose={openCloseModal} 
+            onRefetch={onRefetch} 
+            table={data}
+        />);
+        openCloseModal();
+    }
     
     return (
         <Fragment>
@@ -42,7 +53,7 @@ export function TablesAdmin() {
             {loading ? 
                 <Loader active inline='centered'>Cargando...</Loader>
             :(
-                <TableTablesAdmin tables={tables} updateTable={updateTable}/>
+                <TableTablesAdmin tables={tables} updateTable={updateTable} deleteTable={deleteTable}/>
             )}
 
             <ModalBasic show={showModal} onClose={openCloseModal} title={titleModal} children={contentModal} />

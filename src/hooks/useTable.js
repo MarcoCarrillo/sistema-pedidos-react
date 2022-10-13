@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { getTablesApi, addTableApi } from '../api/table'
+import { getTablesApi, addTableApi, updateTableApi } from '../api/table'
 import { useAuth } from './';
 import { toast } from 'react-toastify';
 
@@ -25,9 +25,22 @@ export function useTable() {
     const addTable = async (data) => {
         try {
             setLoading(true);
-            addTableApi(data, auth.token);
+            await addTableApi(data, auth.token);
             setLoading(false);
             toast.success('Mesa agregada correctamente')
+        } catch (error) {
+            setLoading(false);
+            setError(false);
+            toast.success('Hubo un error')
+        }
+    }
+
+    const updateTable = async (id, data) => {
+        try {
+            setLoading(true);
+            await updateTableApi(id, data, auth.token);
+            setLoading(false);
+            toast.success('Mesa actualizada correctamente')
         } catch (error) {
             setLoading(false);
             setError(false);
@@ -40,7 +53,8 @@ export function useTable() {
         error,
         tables,
         getTables,
-        addTable
+        addTable,
+        updateTable
     }
 
 }

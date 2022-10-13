@@ -4,7 +4,7 @@ import { map } from 'lodash'
 import './TableTablesAdmin.scss'
 
 export function TableTablesAdmin(props) {
-  const { tables } = props;
+  const { tables, updateTable } = props;
 
   return (
     <Table className='table-tables-admin'>
@@ -19,7 +19,7 @@ export function TableTablesAdmin(props) {
         {map(tables, (table, index) => (
           <Table.Row key={index}>
             <Table.Cell>{table.number}</Table.Cell>
-            <Actions table={table} />
+            <Actions table={table} updateTable={updateTable} />
           </Table.Row>
         ))}
       </Table.Body>
@@ -28,11 +28,11 @@ export function TableTablesAdmin(props) {
 }
 
 function Actions(props) {
-  const { table } = props;
+  const { table, updateTable } = props;
 
   return(
     <Table.Cell textAlign='right'>
-      <Button icon color='yellow' onClick={() => console.log('Editar mesa')}>
+      <Button icon color='yellow' onClick={() => updateTable(table)}>
         <Icon name='pencil' />
       </Button>
       <Button icon negative onClick={() => console.log('eliminar mesa')}>

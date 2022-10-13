@@ -34,3 +34,22 @@ export async function addTableApi(data, token) {
         throw error;
     }
 }
+
+export async function updateTableApi(id, data, token) {
+    try {
+        const url  = `${BASE_API}/api/tables/${id}/`;
+        const params = {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        }
+        const response = await fetch(url, params);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}

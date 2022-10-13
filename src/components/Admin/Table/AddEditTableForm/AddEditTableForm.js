@@ -6,15 +6,17 @@ import { useTable } from '../../../../hooks';
 import './AddEditTableForm.scss'
 
 export function AddEditTableForm(props) {
-  const { onClose, onRefetch } = props;
-  const { addTable } = useTable();
+  const { onClose, onRefetch, table } = props;
+  const { addTable, updateTable } = useTable();
 
+  console.log(table);
   const formik = useFormik({
-    initialValues: initialValues(),
+    initialValues: initialValues(table),
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
     onSubmit: async (formValue) => {
-      await addTable(formValue);
+      if (table) await updateTable(table.id, formValue);
+      else await addTable(formValue);
       onRefetch();
       onClose();
     }
@@ -30,14 +32,14 @@ export function AddEditTableForm(props) {
         onChange={formik.handleChange}
         error={formik.errors.number}
       />
-      <Button type='submit' primary fluid content='Crear' ></Button>
+      <Button type='submit' primary fluid content={table? 'Actualizar' : 'Crear'}></Button>
     </Form>
   )
 }
 
-function initialValues() {
+function initialValues(data) {
   return {
-    number: ''
+    number: data?.number || '' 
   }
 }
 

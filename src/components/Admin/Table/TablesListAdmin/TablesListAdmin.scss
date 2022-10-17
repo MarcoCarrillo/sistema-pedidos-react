@@ -1,4 +1,23 @@
 .tables-list-admin {
     display: flex;
     flex-wrap: wrap;
+
+    &__reload {
+        margin: 0;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+    }
+
+    &__reload-toggle {
+        position: absolute !important;
+        top: 80px;
+        right: 75px;
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-right: 20px;
+        }
+    }
 }

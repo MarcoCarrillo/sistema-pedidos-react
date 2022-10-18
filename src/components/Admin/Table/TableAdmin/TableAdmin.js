@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { size } from 'lodash';
 import { Label } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { ReactComponent as IcTable } from '../../../../assets/mesa.svg';
 import { getOrdersByTableApi } from '../../../../api/orders';
@@ -31,7 +32,7 @@ export function TableAdmin(props) {
   }, []);
 
   return (
-    <div className='table-admin'>
+    <Link className='table-admin' to={`/admin/table/${table.id}`}>
       {size(orders) > 0 ? (
         <Label circular color='orange' >{size(orders)}</Label>
       ) : null}
@@ -40,6 +41,6 @@ export function TableAdmin(props) {
         busy: tableBusy
       })} />
       <p>Mesa {table.number}</p>
-    </div>
+    </Link>
   )
 }

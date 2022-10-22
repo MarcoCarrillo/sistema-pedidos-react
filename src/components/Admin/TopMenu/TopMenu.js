@@ -48,7 +48,7 @@ export function TopMenu() {
                             <span>Mesa vacía</span>
                         </Dropdown.Item>
                         <Dropdown.Item text='Mesa vacia'>
-                            <Icon name='circle' color='yellow' />
+                            <Icon name='circle' color='brown' />
                             <span>Mesa ocupada sin pedidos pendientes</span>
                         </Dropdown.Item>
                         <Dropdown.Item text='Mesa vacia'>
@@ -63,11 +63,11 @@ export function TopMenu() {
                         <Dropdown.Header icon='pencil' content='Pedidos' />
                         <Dropdown.Divider />
                         <Dropdown.Item>
-                            {/* <Icon name='circle' color='black' /> */}
+                            <Icon name='circle'  color='yellow' />
                             <span>Producto pendiente</span>
                         </Dropdown.Item>
                         <Dropdown.Item text='Mesa vacia'>
-                            {/* <Icon name='circle' color='yellow' /> */}
+                            <Icon name='circle' color='green' />
                             <span>Producto entregado</span>
                         </Dropdown.Item>
                     </Dropdown.Menu>

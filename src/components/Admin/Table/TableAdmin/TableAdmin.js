@@ -14,7 +14,7 @@ export function TableAdmin(props) {
   const [orders, setOrders] = useState([]);
   const [tableBusy, setTableBusy] = useState(false);
 
-  console.log(orders);
+  // console.log(orders);
 
   useEffect(() => {
     (async () => {

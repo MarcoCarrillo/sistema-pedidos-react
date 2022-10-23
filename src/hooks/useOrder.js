@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { getOrdersByTableApi } from "../api/orders";
+import { toast } from "react-toastify";
+import { getOrdersByTableApi, checkDeliveredOrderApi } from "../api/orders";
 
 export function useOrder() {
     const [loading, setLoading] = useState(false);
@@ -18,10 +19,20 @@ export function useOrder() {
         }
     }
 
+    const checkDeliveredOrder =  async (idOrder) => {
+        try {
+            await checkDeliveredOrderApi(idOrder);
+            toast.success('Producto entregado correctamente')
+        } catch (error) {
+            setError(error);
+        }
+    }
+
     return {
         loading,
         error,
         orders,
-        getOrdersByTable
+        getOrdersByTable,
+        checkDeliveredOrder
     }
 }

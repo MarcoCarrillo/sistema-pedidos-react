@@ -4,12 +4,12 @@ import { OrderItemAdmin } from '../';
 import './ListOrderAdmin.scss';
 
 export function ListOrderAdmin(props) {
-    const { orders } = props;
+    const { orders, onReloadOrders } = props;
     console.log(orders);
     return (
         <div className='list-orders-admin'>
             {map(orders, (order) => (
-                <OrderItemAdmin key={order.id} order={order} />
+                <OrderItemAdmin key={order.id} order={order} onReloadOrders={onReloadOrders}/>
             ))}
         </div>
     )

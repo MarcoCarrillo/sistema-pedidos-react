@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { getProductsApi, addProductApi, updateProductApi, deleteProductApi } from "../api/product";
+import { 
+    getProductsApi, 
+    addProductApi, 
+    updateProductApi, 
+    deleteProductApi, 
+    getProductByIdApi 
+} from "../api/product";
 import { useAuth } from "./useAuth";
 import { toast } from 'react-toastify';
 
@@ -60,6 +66,15 @@ export function useProduct() {
         }
     }
 
+    const getProductById = async (id) => {
+        try {
+            const response = await getProductByIdApi(id);
+            return response;
+        } catch (error) {
+            setError(false);
+        }
+    }
+
     return {
         loading,
         error,
@@ -67,6 +82,7 @@ export function useProduct() {
         getProducts,
         addProduct,
         updateProduct,
-        deleteProduct
+        deleteProduct,
+        getProductById
     }
 }

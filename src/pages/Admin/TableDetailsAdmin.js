@@ -42,7 +42,7 @@ export function TableDetailsAdmin() {
           <ListOrderAdmin orders={orders} onReloadOrders={onReloadOrders} />
       }
 
-      <ModalBasic show={showModal} onClose={openCloseModal} title='Añadir producto al pedido'>
+      <ModalBasic show={showModal} onClose={openCloseModal} title={`Añadir productos al pedido - Mesa ${table?.number || ''}`}>
         <AddOrderForm idTable={id} openCloseModal={openCloseModal} />
       </ModalBasic>
     </>

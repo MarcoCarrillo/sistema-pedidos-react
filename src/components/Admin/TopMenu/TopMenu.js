@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Menu, Image } from 'semantic-ui-react';
+import { Icon, Menu, Image, Button, Dropdown } from 'semantic-ui-react';
 import { useAuth }  from '../../../hooks'
 import { useUser } from '../../../hooks';
 import './TopMenu.scss';
@@ -30,7 +30,52 @@ export function TopMenu() {
                 <Menu.Item>{renderName()}</Menu.Item>
             </Menu.Item>
         </Menu.Menu>
-        
+        <Menu.Menu>
+            <Menu.Item>
+                <Dropdown
+                    text='Estados'
+                    icon='question'
+                    floating
+                    labeled
+                    button
+                    className='icon'
+                >
+                    <Dropdown.Menu>
+                        <Dropdown.Header icon='microchip' content='Mesas' />
+                        <Dropdown.Divider />
+                        <Dropdown.Item>
+                            <Icon name='circle' color='black' />
+                            <span>Mesa vacía</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Icon name='circle' color='brown' />
+                            <span>Mesa ocupada sin pedidos pendientes</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Icon name='circle' color='blue' />
+                            <span>Mesa ocupada con pedidos pendientes</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Icon name='circle' color='orange' />
+                            <span>Numero de productos pendientes</span>
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Header icon='pencil' content='Pedidos' />
+                        <Dropdown.Divider />
+                        <Dropdown.Item>
+                            <Icon name='circle'  color='yellow' />
+                            <span>Producto pendiente</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                            <Icon name='circle' color='green' />
+                            <span>Producto entregado</span>
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                    
+                </Dropdown>
+                
+            </Menu.Item>
+        </Menu.Menu>
         <Menu.Item onClick={logout}>
             <Icon size='large' name="sign out" />
             <p>Cerrar Sesion</p>

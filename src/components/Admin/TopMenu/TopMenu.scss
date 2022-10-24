@@ -6,7 +6,13 @@
 
 .top-menu-admin {
     &__logo {
+        display: flex;
+        align-items: center;
         width: auto;
+    }
+
+    &__heading {
+        padding-left:0 !important;
     }
 }
 

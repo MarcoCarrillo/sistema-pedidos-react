@@ -26,13 +26,13 @@ export function TableDetailsAdmin() {
   const onReloadOrders = () => setReloadOrders(prev => !prev);
   const openCloseModal = () => setShowModal(prev => !prev);
   
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <>
     <HeaderPage 
         title={`Mesa ${table?.number || ''}`} 
-        btnTitle='Añadir producto' 
+        btnTitle='Añadir productos' 
         btnClick={openCloseModal} 
       />
       {loading ? (
@@ -43,7 +43,7 @@ export function TableDetailsAdmin() {
       }
 
       <ModalBasic show={showModal} onClose={openCloseModal} title={`Añadir productos al pedido - Mesa ${table?.number || ''}`}>
-        <AddOrderForm idTable={id} openCloseModal={openCloseModal} />
+        <AddOrderForm idTable={id} openCloseModal={openCloseModal} onReloadOrders={onReloadOrders}/>
       </ModalBasic>
     </>
   )

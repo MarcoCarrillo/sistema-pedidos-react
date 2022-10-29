@@ -1,14 +1,23 @@
 import React from 'react'
+import { toast } from 'react-toastify';
 import { Table, Button, Icon } from 'semantic-ui-react';
+import { usePayment } from '../../../../hooks';
 import './PaymentDetail.scss';
 
 export function PaymentDetail(props) {
     const { payment, orders, openCloseModal, onReloadOrders } = props;
+    const { closePayment } = usePayment();
 
     const getIconPayment = key => {
         if (key === 'CARD') return 'credit card outline'
         if (key === 'CASH') return 'money'
         else return null
+    }
+
+    const onCloseTable = async () => {
+        await closePayment(payment.id)
+        toast.success('Cuenta cerrada exitosamente')
+        openCloseModal();
     }
 
     return (
@@ -32,7 +41,7 @@ export function PaymentDetail(props) {
                 </Table.Body>
             </Table>
 
-            <Button primary fluid onClick={console.log('Cerrar mesa')}>Marcar como pagada y cerrar mesa</Button>
+            <Button primary fluid onClick={onCloseTable}>Marcar como pagada y cerrar cuenta</Button>
         </div>
     )
 }

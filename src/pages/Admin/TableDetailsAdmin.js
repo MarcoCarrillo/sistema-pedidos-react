@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import { HeaderPage, AddOrderForm, ConfirmPaymentModal } from '../../components/Admin';
 import { ModalBasic } from '../../components/Common';
-import { ListOrderAdmin } from '../../components/Admin/TableDetails';
+import { ListOrderAdmin, PaymentDetail } from '../../components/Admin/TableDetails';
 import { useOrder, useTable, usePayment } from '../../hooks';
 import { forEach, size } from 'lodash';
 import { toast } from 'react-toastify';
@@ -85,9 +85,10 @@ export function TableDetailsAdmin() {
           <ListOrderAdmin orders={orders} onReloadOrders={onReloadOrders} />
       }
 
-      <ModalBasic show={showModal} onClose={openCloseModalProduct} title={`Añadir productos al pedido - Mesa ${table?.number || ''}`}>
-        { paymentData ? <h2>Detalles de la cuenta</h2> : (
-         <AddOrderForm idTable={id} openCloseModal={openCloseModalProduct} onReloadOrders={onReloadOrders}/>)
+      <ModalBasic show={showModal} onClose={openCloseModalProduct} title={ paymentData ? 'Cerrar cuenta' : `Añadir productos al pedido - Mesa ${table?.number || ''}`}>
+        { paymentData ? 
+          <PaymentDetail payment={paymentData} orders={orders} openCloseModal={openCloseModalProduct} onReloadOrders={onReloadOrders} /> : 
+          <AddOrderForm idTable={id} openCloseModal={openCloseModalProduct} onReloadOrders={onReloadOrders}/>
         }
        
       </ModalBasic>

@@ -5,14 +5,15 @@ import { HeaderPage, AddOrderForm, ConfirmPaymentModal } from '../../components/
 import { ModalBasic } from '../../components/Common';
 import { ListOrderAdmin } from '../../components/Admin/TableDetails';
 import { useOrder, useTable, usePayment } from '../../hooks';
-import { forEach } from 'lodash';
+import { forEach, size } from 'lodash';
 import { toast } from 'react-toastify';
 
 export function TableDetailsAdmin() {
   const [reloadOrders, setReloadOrders] = useState(false);
+  const [paymentData, setPaymentData] = useState(null);
   const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { table, getTable } = useTable();
-  const { createPayment } = usePayment();
+  const { createPayment, getPaymentByTable } = usePayment();
   const { id } = useParams();
 
   const [showModal, setShowModal] = useState(false);
@@ -27,14 +28,19 @@ export function TableDetailsAdmin() {
     getTable(id);
   }, [id])
 
+  useEffect(() => {
+    (async () => {
+      const response = await getPaymentByTable(id);
+      if (size(response) > 0) setPaymentData(response[0]);
+    })()
+  }, [reloadOrders])
+
   const onReloadOrders = () => setReloadOrders(prev => !prev);
   const openCloseModalProduct = () => setShowModal(prev => !prev);
   const openCloseModalPayment = () => {
     setShowModalPayment(prev => !prev)
     setPaymentType('');
   };
-  
-  // console.log(orders);
 
   const onConfirmPayment = async () => {
     if (!paymentType) {
@@ -67,9 +73,9 @@ export function TableDetailsAdmin() {
     <>
     <HeaderPage 
         title={`Mesa ${table?.number || ''}`} 
-        btnTitle='Añadir productos' 
+        btnTitle={paymentData ? 'Ver cuenta' : 'Añadir productos' }
         btnClick={openCloseModalProduct}
-        btnTitleTwo='Generar cuenta'
+        btnTitleTwo={!paymentData ? 'Generar cuenta' : null}
         btnClickTwo={openCloseModalPayment} 
       />
       {loading ? (
@@ -80,7 +86,10 @@ export function TableDetailsAdmin() {
       }
 
       <ModalBasic show={showModal} onClose={openCloseModalProduct} title={`Añadir productos al pedido - Mesa ${table?.number || ''}`}>
-        <AddOrderForm idTable={id} openCloseModal={openCloseModalProduct} onReloadOrders={onReloadOrders}/>
+        { paymentData ? <h2>Detalles de la cuenta</h2> : (
+         <AddOrderForm idTable={id} openCloseModal={openCloseModalProduct} onReloadOrders={onReloadOrders}/>)
+        }
+       
       </ModalBasic>
       <ConfirmPaymentModal show={showModalPayment} onClose={openCloseModalPayment} idTable={id} onConfirmPayment={onConfirmPayment} paymentType={paymentType} setPaymentType={setPaymentType} />
     </>

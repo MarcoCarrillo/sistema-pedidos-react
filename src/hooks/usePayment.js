@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { createPaymentApi } from "../api/payment";
+import { createPaymentApi, getPaymentByTableApi } from "../api/payment";
 
 
 export function usePayment() {
@@ -15,8 +15,17 @@ export function usePayment() {
         }
     }
 
+    const getPaymentByTable = async (idTable) => {
+        try {
+            return await getPaymentByTableApi(idTable);
+        } catch (error) {
+            setError(error);
+        }
+    }
+
     return {
         error,
-        createPayment
+        createPayment,
+        getPaymentByTable
     }
 }

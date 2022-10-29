@@ -58,3 +58,22 @@ export async function addOrderToTableApi(idTable, idProduct) {
         throw error;
     }
 }
+
+export async function addPaymentToOrderApi(idOrder, idPayment) {
+    try {
+        const url = `${BASE_API}/api/orders/${idOrder}/`;
+        const params = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                payment: idPayment
+            })
+        }
+        await fetch(url, params);
+    } catch (error) {
+        toast.error(error);
+        throw error;
+    }
+}

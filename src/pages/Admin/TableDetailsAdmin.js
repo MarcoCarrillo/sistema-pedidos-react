@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 export function TableDetailsAdmin() {
   const [reloadOrders, setReloadOrders] = useState(false);
-  const { loading, orders, getOrdersByTable } = useOrder();
+  const { loading, orders, getOrdersByTable, addPaymentToOrder } = useOrder();
   const { table, getTable } = useTable();
   const { createPayment } = usePayment();
   const { id } = useParams();
@@ -51,8 +51,12 @@ export function TableDetailsAdmin() {
         statusPayment: 'PENDING',
       }
       const payment = await createPayment(paymentData);
+      for await (const order of orders) {
+        await addPaymentToOrder(order.id, payment.id)
+      }
       if (payment) {
         toast.success('Cuenta generada con éxito');
+        onReloadOrders();
         openCloseModalPayment();
       }
     }

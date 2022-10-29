@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import { 
     getOrdersByTableApi, 
     checkDeliveredOrderApi, 
-    addOrderToTableApi
+    addOrderToTableApi,
+    addPaymentToOrderApi
 } from "../api/orders";
 
 export function useOrder() {
@@ -40,12 +41,21 @@ export function useOrder() {
         }
     }
 
+    const addPaymentToOrder = async (idOrder, idPayment) => {
+        try {
+            await addPaymentToOrderApi(idOrder, idPayment);
+        } catch (error) {
+            setError(error)
+        }
+    }
+
     return {
         loading,
         error,
         orders,
         getOrdersByTable,
         checkDeliveredOrder,
-        addOrderToTable
+        addOrderToTable,
+        addPaymentToOrder
     }
 }

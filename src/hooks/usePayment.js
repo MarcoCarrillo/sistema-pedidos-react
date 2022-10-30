@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { createPaymentApi, getPaymentByTableApi, closePaymentApi } from "../api/payment";
+import { createPaymentApi, getPaymentByTableApi, closePaymentApi, getPaymentsApi } from "../api/payment";
 
 
 export function usePayment() {
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [payments, setPayments] = useState(null);
 
     const createPayment = async (paymentData) => {
         try {
@@ -31,10 +33,25 @@ export function usePayment() {
         }
     }
 
+    const getPayments = async () => {
+        try {
+            setLoading(true);
+            const response = await getPaymentsApi();
+            setLoading(false);
+            setPayments(response);
+        } catch (error) {
+            setLoading(false);
+            setError(error);
+        }
+    }
+
     return {
         error,
+        loading,
+        payments,
         createPayment,
         getPaymentByTable,
-        closePayment
+        closePayment,
+        getPayments
     }
 }

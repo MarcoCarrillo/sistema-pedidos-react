@@ -5,7 +5,8 @@ import {
     CategoriasAdmin, 
     ProductAdmin,
     TablesAdmin,
-    TableDetailsAdmin
+    TableDetailsAdmin,
+    PaymentsHistory
 } from "../pages/Admin";
 
 const routesAdmin = [
@@ -44,7 +45,13 @@ const routesAdmin = [
         layout: AdminLayout,
         component: TableDetailsAdmin,
         exact: true
-    }
+    },
+    {
+        path: "/admin/payments-history",
+        layout: AdminLayout,
+        component: PaymentsHistory,
+        exact: true
+    },
 ];
 
 export default routesAdmin;

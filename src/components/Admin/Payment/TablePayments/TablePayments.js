@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Table, Button, Icon } from 'semantic-ui-react';
 import { map } from 'lodash';
 import { ModalBasic } from '../../../Common';
+import { PaymentProductList } from '../../../Admin';
 import moment from 'moment';
 
 export function TablePayments(props) {
@@ -13,8 +14,8 @@ export function TablePayments(props) {
 
     const openCloseModal = () => setShowModal(prev => !prev);
     const showDetails = payment => {
-        setTitleModal(`Pedidos de la mesa ${payment.table_data.number}`);
-        setContentModal(<h2>Pedidos</h2>);
+        setTitleModal(`Pedidos de la Mesa ${payment.table_data.number} a las ${moment(payment.created_at).format('HH:mm')}`);
+        setContentModal(<PaymentProductList payment={payment} />);
         openCloseModal();
     }
 

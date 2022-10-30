@@ -43,7 +43,7 @@ export function TopMenu() {
                     button
                     className='icon'
                 >
-                    <Dropdown.Menu>
+                    <Dropdown.Menu style={{marginRight: 30}}>
                         <Dropdown.Header icon='microchip' content='Mesas' />
                         <Dropdown.Divider />
                         <Dropdown.Item>
@@ -59,8 +59,12 @@ export function TopMenu() {
                             <span>Mesa ocupada con pedidos pendientes</span>
                         </Dropdown.Item>
                         <Dropdown.Item>
+                            <Icon name='circle' color='green' />
+                            <span>Mesa con la cuenta pedida</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
                             <Icon name='circle' color='orange' />
-                            <span>Numero de productos pendientes</span>
+                            <span># Productos pendientes/Cuenta</span>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Header icon='pencil' content='Pedidos' />

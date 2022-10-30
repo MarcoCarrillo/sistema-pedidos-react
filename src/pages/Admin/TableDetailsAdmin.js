@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import { HeaderPage, AddOrderForm, ConfirmPaymentModal } from '../../components/Admin';
 import { ModalBasic } from '../../components/Common';
@@ -75,7 +75,7 @@ export function TableDetailsAdmin() {
         title={`Mesa ${table?.number || ''}`} 
         btnTitle={paymentData ? 'Ver cuenta' : 'Añadir productos' }
         btnClick={openCloseModalProduct}
-        btnTitleTwo={!paymentData ? 'Generar cuenta' : null}
+        btnTitleTwo={!paymentData && orders.length > 0 ? 'Generar cuenta' : null}
         btnClickTwo={openCloseModalPayment} 
       />
       {loading ? (

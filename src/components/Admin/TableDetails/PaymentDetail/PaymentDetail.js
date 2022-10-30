@@ -1,12 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Table, Button, Icon } from 'semantic-ui-react';
-import { usePayment } from '../../../../hooks';
+import { usePayment, useOrder } from '../../../../hooks';
 import './PaymentDetail.scss';
 
 export function PaymentDetail(props) {
     const { payment, orders, openCloseModal, onReloadOrders } = props;
     const { closePayment } = usePayment();
+    const { closeOrder } = useOrder();
+    const navigate = useNavigate();
 
     const getIconPayment = key => {
         if (key === 'CARD') return 'credit card outline'
@@ -15,8 +18,14 @@ export function PaymentDetail(props) {
     }
 
     const onCloseTable = async () => {
-        await closePayment(payment.id)
-        toast.success('Cuenta cerrada exitosamente')
+        await closePayment(payment.id);
+
+        for await (const order of orders) {
+           await closeOrder(order.id);
+        }
+        onReloadOrders();
+        navigate('/admin')
+        toast.success('Cuenta cerrada exitosamente');
         openCloseModal();
     }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Icon, Menu, Image, Button, Dropdown } from 'semantic-ui-react';
+import { Icon, Menu, Image, Button, Dropdown, Header } from 'semantic-ui-react';
 import { useAuth }  from '../../../hooks'
 import { useUser } from '../../../hooks';
 import './TopMenu.scss';
@@ -23,10 +23,13 @@ export function TopMenu() {
   return (
     <Menu fixed='top' className='top-menu-admin'>
         <Menu.Menu position='left'>
-            <Menu.Item className='top-menu-admin__logo'>
+            <Menu.Item as={Link} to={'/admin'}  className='top-menu-admin__logo'>
                 <Image src='https://i.ibb.co/0B3MdZx/logo-tiburoneros.jpg' size='tiny' centered />
             </Menu.Item>
-            <Menu.Item as={Link} to={'/admin'} position='left'>
+            <Menu.Item className='top-menu-admin__heading'>
+                <Header as='h3'>Sistema de Pedidos</Header>
+            </Menu.Item>
+            <Menu.Item position='left'>
                 <Menu.Item>{renderName()}</Menu.Item>
             </Menu.Item>
         </Menu.Menu>
@@ -40,7 +43,7 @@ export function TopMenu() {
                     button
                     className='icon'
                 >
-                    <Dropdown.Menu>
+                    <Dropdown.Menu style={{marginRight: 30}}>
                         <Dropdown.Header icon='microchip' content='Mesas' />
                         <Dropdown.Divider />
                         <Dropdown.Item>
@@ -56,8 +59,12 @@ export function TopMenu() {
                             <span>Mesa ocupada con pedidos pendientes</span>
                         </Dropdown.Item>
                         <Dropdown.Item>
+                            <Icon name='circle' color='green' />
+                            <span>Mesa con la cuenta pedida</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
                             <Icon name='circle' color='orange' />
-                            <span>Numero de productos pendientes</span>
+                            <span># Productos pendientes/Cuenta</span>
                         </Dropdown.Item>
                         <Dropdown.Divider />
                         <Dropdown.Header icon='pencil' content='Pedidos' />

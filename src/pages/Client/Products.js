@@ -20,6 +20,7 @@ export function Products() {
             <Button primary fluid>
                 <Link to={`/client/${tableNumber}`}><p style={{color: 'white'}}>Volver a categorias</p></Link>
             </Button>
+            <h3>Productos de la categoría</h3>
             {loading ? <Loader active inline='centered'>Cargando...</Loader> 
             : <ListProducts products={products} /> }
         </div>

@@ -19,6 +19,7 @@ export function SelectTable(props) {
             console.log(exist);
             if (exist) {
                 navigate(`/client/${tableNum}`);
+                toast.success('Ingresaste correctamente!')
             } else {
                 toast.error('La mesa que ingresaste no existe')
             }

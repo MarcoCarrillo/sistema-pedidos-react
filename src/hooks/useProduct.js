@@ -4,7 +4,8 @@ import {
     addProductApi, 
     updateProductApi, 
     deleteProductApi, 
-    getProductByIdApi 
+    getProductByIdApi,
+    getProductByCategoryApi
 } from "../api/product";
 import { useAuth } from "./useAuth";
 import { toast } from 'react-toastify';
@@ -30,7 +31,7 @@ export function useProduct() {
     const addProduct = async (data) => {
         try {
             setLoading(true);
-            addProductApi(data, auth.token);
+            await addProductApi(data, auth.token);
             setLoading(false);
             toast.success('Producto agregado correctamente')
         } catch (error) {
@@ -43,7 +44,7 @@ export function useProduct() {
     const updateProduct = async (id, data) => {
         try {
             setLoading(true);
-            updateProductApi(id, data, auth.token);
+            await updateProductApi(id, data, auth.token);
             setLoading(false);
             toast.success('Producto actualizado correctamente')
         } catch (error) {
@@ -75,6 +76,18 @@ export function useProduct() {
         }
     }
 
+    const getProductByCategory = async (idCategory) => {
+        try {
+            setLoading(true);
+            const response = await getProductByCategoryApi(idCategory);
+            setLoading(false);
+            setProducts(response);
+        } catch (error) {
+            setLoading(false);
+            setError(error);
+        }
+    }
+
     return {
         loading,
         error,
@@ -83,6 +96,7 @@ export function useProduct() {
         addProduct,
         updateProduct,
         deleteProduct,
-        getProductById
+        getProductById,
+        getProductByCategory
     }
 }

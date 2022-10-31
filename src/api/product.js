@@ -89,7 +89,7 @@ export async function getProductByIdApi(id) {
 
 export async function getProductByCategoryApi(idCategory) {
     try {
-        const categoryFilter = `category=${idCategory}`
+        const categoryFilter = `category=${idCategory}`;
         const url = `${BASE_API}/api/products/?${categoryFilter}`;
         const response = await fetch(url);
         const result = await response.json();

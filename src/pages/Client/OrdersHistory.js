@@ -4,12 +4,14 @@ import { useOrder, useTable } from '../../hooks';
 import { Button, Loader } from 'semantic-ui-react';
 import { map, size, foreach } from 'lodash';
 import { OrderHistoryItem } from '../../components/Client';
+import { ModalConfirm } from '../../components/Common';
 
 export function OrdersHistory() {
     const { tableNumber } = useParams();
     const { loading, orders, getOrdersByTable } = useOrder();
     const { getTableByNumber } = useTable();
-    console.log(orders);
+    const [showTypePayment, setShowTypePayment] = useState(false);
+    console.log(showTypePayment);
 
     useEffect(() => {
         (async () => {
@@ -20,6 +22,8 @@ export function OrdersHistory() {
         })()
     }, [])
 
+    const openCloseModal = () => setShowTypePayment(prev => !prev);
+
     return (
         <div>
             <Button primary fluid>
@@ -28,11 +32,17 @@ export function OrdersHistory() {
             <h3>Historial de pedidos</h3>
             {loading ? <Loader active inline='centered'>Cargando...</Loader> 
             : 
-                <> {map(orders, (order) => (
+                <>
+                {size(orders) > 0 &&(
+                    <Button fluid color='green' onClick={() => openCloseModal()}>Pedir la cuenta</Button>
+                )}
+                {map(orders, (order) => (
                     <OrderHistoryItem key={order.id} order={order} />
                 ))}
                     
-                </> }
+                </> 
+            }
+            <ModalConfirm title='Tipo de pago' show={showTypePayment} onClose={openCloseModal} onCloseText='Efectivo' onCloseOption={() => console.log('Efectivo')} onConfirmText='Tarjeta de crédito o debito' onConfirm={() => console.log('tajeta')} />    
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container, Icon, Button, Image } from 'semantic-ui-react';
+import { Container, Icon, Button, Image, Header } from 'semantic-ui-react';
 import { useTable } from '../../hooks';
 import './ClientLayout.scss';
 
@@ -40,7 +40,7 @@ export function ClientLayout(props) {
           <Link to={`/client/${tableNumber}`}>
             <Image src='https://i.ibb.co/0B3MdZx/logo-tiburoneros.jpg' size='tiny' centered />
           </Link>
-          <span>Mesa {tableNumber}</span>
+          <Header as='h3'>Mesa {tableNumber}</Header>
 
           <div>
             <Button icon onClick={goToCart}>

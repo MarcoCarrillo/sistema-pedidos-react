@@ -2,14 +2,14 @@ import React from "react";
 import { Image, Button, Icon } from "semantic-ui-react";
 import { map } from "lodash";
 import { toast } from "react-toastify";
-// import { addProductCart } from "../../../api/cart";
+import { addProductCart } from "../../../api/cart";
 import "./ListProducts.scss";
 
 export function ListProducts(props) {
   const { products } = props;
 
   const addCart = (product) => {
-    // addProductCart(product.id);
+    addProductCart(product.id);
     toast.success(`${product.title} añadido al carrito`);
   };
 

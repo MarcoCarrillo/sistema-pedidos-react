@@ -16,8 +16,6 @@ export function TableAdmin(props) {
   const [pendingPayment, setPendingPayment] = useState(false);
   const { getPaymentByTable } = usePayment();
 
-  // console.log(orders);
-
   useEffect(() => {
     (async () => {
       const response = await getOrdersByTableApi(table.number, ORDER_STATUS.PENDING);

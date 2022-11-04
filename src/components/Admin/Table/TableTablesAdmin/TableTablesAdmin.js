@@ -13,7 +13,6 @@ export function TableTablesAdmin(props) {
   const openCloseModal = () => setShowModal(prev => !prev);
 
   const showQR = (table) => {
-    console.log(`${window.location.origin}/client/${table.number}`);
     setContentModal(
       <div style={{textAlign: 'center'}}>
         <QRCode value={`${window.location.origin}/client/${table.number}`} />

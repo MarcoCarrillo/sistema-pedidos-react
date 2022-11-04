@@ -40,7 +40,7 @@ export async function getMeApi(token) {
         const result = await response.json();
         return result;
     } catch (error) {
-        console.log(error)
+        throw error;
     }
 }
 
@@ -114,7 +114,6 @@ export async function deleteUserApi(id, token) {
         }
 
     } catch (error) {
-        console.log(error)
         throw error;
     }
 }

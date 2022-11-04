@@ -7,7 +7,6 @@ export function OrdersAdmin() {
   const { loading, tables, getTables } = useTable();
 
   useEffect(() =>{ getTables()}, []);
-  // console.log(tables);
 
   return (
     <>

@@ -5,14 +5,12 @@ import { useCategory } from '../../../../hooks';
 export function DeleteCategoryModal(props) {
     const { onClose, onRefetch, category } = props;
     const { deleteCategory } = useCategory();
-    console.log(category)
     const onDeleteCategory = async (id) => {
         try {
             await deleteCategory(id);
             onRefetch();
             onClose();
         } catch (error) {
-            console.log(error)
         }
     }
     return (

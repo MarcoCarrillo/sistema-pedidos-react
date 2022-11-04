@@ -12,9 +12,6 @@ export function Products() {
         getProductByCategory(idCategory)
     }, [idCategory]);
 
-    console.log(products);
-
-
     return (
         <div>
             <Button primary fluid>

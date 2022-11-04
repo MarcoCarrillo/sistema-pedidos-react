@@ -5,7 +5,6 @@ import './ListOrderAdmin.scss';
 
 export function ListOrderAdmin(props) {
     const { orders, onReloadOrders } = props;
-    console.log(orders);
     return (
         <div className='list-orders-admin'>
             {map(orders, (order) => (

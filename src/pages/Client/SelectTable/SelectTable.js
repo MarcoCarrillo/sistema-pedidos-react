@@ -16,7 +16,6 @@ export function SelectTable(props) {
             toast.error('Aun no has colocado el número de mesa')
         } else {
             const exist = await isExistTable(tableNum);
-            console.log(exist);
             if (exist) {
                 navigate(`/client/${tableNum}`);
                 toast.success('Ingresaste correctamente!')

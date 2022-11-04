@@ -53,8 +53,6 @@ export function useCategory() {
         } catch (error) {
             setLoading(false);
             setError(error);
-            
-        console.log(error)
             toast.error('Ha ocurrido un error')
         }
     }

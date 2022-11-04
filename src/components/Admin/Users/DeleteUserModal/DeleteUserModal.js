@@ -6,14 +6,12 @@ import { useUser } from '../../../../hooks';
 export function DeleteUserModal(props) {
     const { onClose, onRefetch, user } = props;
     const { deleteUser } = useUser();
-    console.log(user)
     const onDeleteUser = async (id) => {
         try {
             await deleteUser(id);
             onRefetch();
             onClose();
         } catch (error) {
-            console.log(error)
         }
     }
     return (

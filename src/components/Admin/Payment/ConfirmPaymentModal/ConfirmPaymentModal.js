@@ -6,9 +6,6 @@ import './ConfirmPaymentModal.scss'
 export function ConfirmPaymentModal(props) {
     const { show, onClose, idTable, onConfirmPayment, paymentType, setPaymentType, error } = props;
 
-    
-    console.log(paymentType);
-
     return (
         <Modal
             open={show}

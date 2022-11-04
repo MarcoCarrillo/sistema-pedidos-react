@@ -13,9 +13,6 @@ export function AddOrderForm(props) {
     const [productsData, setProductsData] = useState([]);
     const { products, getProducts, getProductById } = useProduct();
     const { addOrderToTable } = useOrder();
-    // console.log(products);
-    // console.log(productsFormat);
-    console.log(productsData);
 
     useEffect(() => {
         getProducts();
@@ -53,7 +50,6 @@ export function AddOrderForm(props) {
             }
             setProductsData(arrayTemp);
         } catch (error) {
-            console.log(error);
             toast.error('Ha ocurrido un error al añadir el producto, intentalo mas tarde')
         }
     }

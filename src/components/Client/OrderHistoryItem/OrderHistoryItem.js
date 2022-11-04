@@ -24,14 +24,13 @@ export function OrderHistoryItem(props) {
 
       <div className="order-history-item__product">
         <Image src={image} />
-        <p>{title}</p>
+        <p style={{fontSize: 12}}>{title}</p>
       </div>
-      <span>${price}</span>
 
       {order.status === ORDER_STATUS.PENDING ? (
-        <span>Pedido en curso</span>
+        <span style={{fontSize: 12}}>Pedido en curso</span>
       ) : (
-        <span>Entregado</span>
+        <span style={{fontSize: 12}}>Entregado</span>
       )}
     </div>
   )
